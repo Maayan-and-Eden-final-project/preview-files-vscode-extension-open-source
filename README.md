@@ -6,6 +6,8 @@ An extension for Visual Studio Code which is currently supports a preview for Yo
 1. [Features](#features)
     1. [Non local images](#non-local-images)
     1. [Local images](#local-images)
+    1. [YouTube videos](#youtube-videos)
+    1. [CSS files](#css-files)
 1. [Extention settings](#extention-settings)
 1. [About us](#about-us)
 1. [Known issues](#known-issues)
@@ -25,11 +27,13 @@ The extension supports the following files:
 + Local images (explicit and relative path)
     * View image in a new tab.
     * Image preview when hovering.
-  
+
+<a href="youtube-videos"></a>
 + YouTube videos (youtube URLs)
     * Open video in browser.
     * Video thumbnail preview when hovering.
 
+<a href="css-files"></a>
 + CSS files (currently only some relative paths)
     * Open Css files in a new tab (on clicking a button when hovering).
 

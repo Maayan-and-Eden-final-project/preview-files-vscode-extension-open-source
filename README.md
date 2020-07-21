@@ -52,6 +52,7 @@ The extension supports the following files:
 
 We registered some new commands (in package.json file), for example:
 
+```
 json
 "commands": [
 			{
@@ -64,7 +65,7 @@ json
 			}
 		
 ]
-
+```
 Preview Hover is called to activate the extension.
 
 newTabCommand is only called from inside the extension whenever a new tab must be displayed.

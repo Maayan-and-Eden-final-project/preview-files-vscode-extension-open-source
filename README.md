@@ -52,8 +52,8 @@ The extension supports the following files:
 
 We registered some new commands (in package.json file), for example:
 
-```
-json
+
+```json
 "commands": [
 			{
 				"command": "extension.previewHover",

@@ -1,7 +1,6 @@
 
 import { MarkdownString} from 'vscode';
 
-
 export default interface IPreviewObject
 {
 	getHtmlContent(url: string): string;

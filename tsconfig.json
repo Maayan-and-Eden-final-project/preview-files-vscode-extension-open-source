@@ -1,8 +1,10 @@
 {
+	"types":["jest"],
 	"compilerOptions": {
 		"module": "commonjs",
 		"target": "es6",
 		"outDir": "out",
+		"skipLibCheck": true,
 		"lib": [
 			"es6"
 		],

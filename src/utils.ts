@@ -1,7 +1,13 @@
 
+<<<<<<< HEAD
 import ValidateObject from './validationObject'
 import IPreviewObject from './IPreviewObject'
 import { workspace, TextDocument, MarkdownString, Uri, ExtensionContext, TextEditor, window, commands, ViewColumn } from 'vscode';
+=======
+import ValidateObject from './validationObject';
+import IPreviewObject from './IPreviewObject';
+import { workspace, TextDocument, MarkdownString, Uri, ExtensionContext, TextEditor, window, commands, ViewColumn  } from 'vscode';
+>>>>>>> master
 
 const whiteSpaceRegex = /\s/g;
 
@@ -54,16 +60,24 @@ export class variablesUtils {
 }
 
 
+<<<<<<< HEAD
 export function openFile(url: string) {
 	if (url.indexOf("http") != -1) {
 
+=======
+export function openFile(url: string)
+{
+	if(url.indexOf("http") != -1) 
+	{
+		// TODO: should be implemented
+>>>>>>> master
 	}
 	else {
 		let filePath = makeExplicitPathFromRelative(url);
 		if (filePath) {
 			let fileUri = Uri.file(filePath);
 			workspace.openTextDocument(fileUri).then((a: TextDocument) => {
-				window.showTextDocument(a, ViewColumn.Beside, false)
+				window.showTextDocument(a, ViewColumn.Beside, false);
 			}, (error: any) => {
 				console.error(error);
 			});
@@ -79,9 +93,15 @@ export function makeExplicitPathFromRelative(url: string): string | undefined {
 
 	if (splitUrlByFolders.length == 1) //the file is in the current folder
 	{
+<<<<<<< HEAD
 		if (splitPathByFolders)
 			splitPathByFolders[splitPathByFolders?.length - 1] = splitUrlByFolders[0];
 
+=======
+		if(splitPathByFolders)
+			{splitPathByFolders[splitPathByFolders?.length-1] = splitUrlByFolders[0];}
+		
+>>>>>>> master
 	}
 	else if (splitUrlByFolders.length == 2) // the file is in another folder inside the current folder
 	{
@@ -92,18 +112,31 @@ export function makeExplicitPathFromRelative(url: string): string | undefined {
 				splitPathByFolders[splitPathByFolders?.length - 2] = splitUrlByFolders[1];
 			}
 		}
+<<<<<<< HEAD
 		else {
 			if (splitPathByFolders)
 				splitPathByFolders[splitPathByFolders?.length - 1] = splitUrlByFolders[0];
+=======
+		else
+		{
+			if(splitPathByFolders)
+				{splitPathByFolders[splitPathByFolders?.length-1] = splitUrlByFolders[0];}
+>>>>>>> master
 			splitPathByFolders?.push(splitUrlByFolders[1]);
 		}
 	}
 
 	let explicitPath = splitPathByFolders?.join("/");
+<<<<<<< HEAD
 	if (explicitPath == currentPath) {
 		explicitPath = url
+=======
+	if(explicitPath == currentPath)
+	{
+		explicitPath = url;
+>>>>>>> master
 	}
-	return explicitPath
+	return explicitPath;
 }
 
 export function createNewTabCommand(context: ExtensionContext): void {
@@ -128,7 +161,11 @@ export function getPotentialUrl(editor: TextEditor | undefined): string | undefi
 	if (editor) {
 		let text = editor.document.getText();
 		let currentPosition = editor.document.offsetAt(editor.selection.anchor);
+<<<<<<< HEAD
 		extractCurrentLine(text, currentPosition)
+=======
+		extractCurrentLine(text,currentPosition);
+>>>>>>> master
 		variablesUtils.validateObject.invokeValidationFunctions(foundUrl);
 	}
 
@@ -140,6 +177,7 @@ export function extractCurrentLine(text: string, selStart: number) {
 	let leftSubstr = text.substring(0, selStart);
 	let singleQuote = "\'";
 	let Apostrophe = "\"";
+<<<<<<< HEAD
 	let leftBarrier
 	let rightBarrier
 	let barriersList = new Array(singleQuote, Apostrophe)
@@ -166,14 +204,46 @@ export function extractCurrentLine(text: string, selStart: number) {
 			lineBetweenBarriers = leftSubstr.substr(leftBarrier) + rightSubstr.substring(0, rightBarrier)
 		else if (leftBarrier == undefined)
 			lineBetweenBarriers = leftSubstr + rightSubstr.substring(0, rightBarrier)
-		else
-			lineBetweenBarriers = leftSubstr.substr(leftBarrier) + rightSubstr
+=======
+	let leftBarrier;
+	let rightBarrier;
+	let barriersList = new Array(singleQuote, Apostrophe);
+	let lineBetweenBarriers; 
 
-		variablesUtils.potentialUrl = lineBetweenBarriers
+	barriersList.forEach(element => {
+		leftBarrier = leftSubstr.lastIndexOf(element);
+		rightBarrier = rightSubstr.indexOf(element);
+		
+		if(leftBarrier != -1 && rightBarrier != -1)
+		{
+			lineBetweenBarriers = leftSubstr.substr(leftBarrier+1) + rightSubstr.substring(0,rightBarrier);
+
+			if(lineBetweenBarriers.search(/[\n\t]/) == -1)
+			{
+				variablesUtils.potentialUrl = lineBetweenBarriers;
+			}	
+		}
+	});
+
+	if(variablesUtils.potentialUrl != lineBetweenBarriers || (variablesUtils.potentialUrl == undefined && lineBetweenBarriers == undefined))
+	{
+		leftBarrier = getLastIndexOfWhiteSpace(leftSubstr);
+		rightBarrier = getFirstIndexOfWhiteSpace(rightSubstr);
+
+		if(leftBarrier!=undefined && rightBarrier!=undefined)
+			{lineBetweenBarriers = leftSubstr.substr(leftBarrier) + rightSubstr.substring(0,rightBarrier);}
+		else if(leftBarrier == undefined)	
+			{lineBetweenBarriers = leftSubstr + rightSubstr.substring(0,rightBarrier);}
+>>>>>>> master
+		else
+			{lineBetweenBarriers = leftSubstr.substr(leftBarrier) + rightSubstr;}
+
+		variablesUtils.potentialUrl = lineBetweenBarriers;
 	}
 
 }
 
+<<<<<<< HEAD
 export function getFirstIndexOfWhiteSpace(str: string): number | undefined {
 	let foundRegxArray
 	foundRegxArray = whiteSpaceRegex.exec(str)
@@ -186,8 +256,25 @@ export function getLastIndexOfWhiteSpace(str: string): number | undefined {
 
 	while ((foundRegxArray = whiteSpaceRegex.exec(str)) != null) {
 		lastIndex = whiteSpaceRegex.lastIndex
+=======
+export function getFirstIndexOfWhiteSpace(str: string) :number|undefined
+{
+	let foundRegxArray;
+	foundRegxArray = whiteSpaceRegex.exec(str);
+	return foundRegxArray?.index;
+}
+
+export function getLastIndexOfWhiteSpace(str: string) :number|undefined
+{
+	let foundRegxArray;
+	let lastIndex;
+
+	while((foundRegxArray = whiteSpaceRegex.exec(str)) != null)
+	{
+		lastIndex = whiteSpaceRegex.lastIndex;
+>>>>>>> master
 	}
-	return lastIndex
+	return lastIndex;
 
 
 }

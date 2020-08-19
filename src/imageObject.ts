@@ -1,30 +1,30 @@
 import { variablesUtils, makeExplicitPathFromRelative} from './utils';
 import { MarkdownString } from 'vscode';
-import IPreviewObject from './IPreviewObject'
+import IPreviewObject from './IPreviewObject';
  
 
 export default class ImageObject implements IPreviewObject {
 
 	constructor(){
-	variablesUtils.validateObject.addValidateFunction("image", this.validatePotentialUrl)
+	variablesUtils.validateObject.addValidateFunction("image", this.validatePotentialUrl);
 	}
 
 	validatePotentialUrl(foundUrl: {url: string| undefined})
 	{
 		var winningExtension = null;
 
-		if(typeof foundUrl.url == 'undefined'){
+		if(typeof foundUrl.url === 'undefined'){
 			let imageTypeExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp'];
 			imageTypeExtensions.forEach(element => {
 				if(variablesUtils.potentialUrl?.search(element) != -1)
 				{
-					winningExtension = element
+					winningExtension = element;
 				}	
 			});
 
 			if (winningExtension)
 			{
-				foundUrl.url = variablesUtils.potentialUrl
+				foundUrl.url = variablesUtils.potentialUrl;
 				variablesUtils.currentPreviewObject = variablesUtils.previewObjectList["image"];
 			}
 		}
@@ -72,7 +72,7 @@ export default class ImageObject implements IPreviewObject {
 
 	getLocalImageMarkdownString(url: string): MarkdownString
 	{
-        let explicitUrl
+        let explicitUrl;
         
 		if(url.indexOf("file:///") == -1) //if there is no "file:///" (and it's local) concat it to the url
 		{

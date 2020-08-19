@@ -5,6 +5,42 @@ import { workspace, TextDocument, MarkdownString, Uri, ExtensionContext, TextEdi
 
 const whiteSpaceRegex = /\s/g;
 
+/** 
+* @hoverStringValue - a static variable of the type vscode.MarkdownString.
+we use it to update the current markdown string value.
+It is used in the makeMrkdownString functions (an interface function).
+
+* @previewObjectList - a static "dictionary" with a string key and a IPreviewObject value.
+It is used to hold one instans of each format object (ImageObject, YoutubeObject...).
+We use it to update the currentPreviewObject variable in the validatePotentialUrl functions (an interface function).
+We also use it in the initializePreviewObjectList function, which create the instances of the objects.
+All features must "register" to this dictionary by adding themselves to the initializePreviewObjectList function (like we showed)
+and updating the currentPreviewObject once it was validated as the relevant format.
+
+* @currentPreviewObject - a static variable of the type IPreviewObject. 
+It is used to hold the current validated format object. 
+For example, if it was veriefied the current URL is an image then the currentPreviewObject 
+will be updated to the ImageObject instance in the previewObjectList["image"] (the updating accure in the validatePotentialUrl function).
+
+* @validateObject - a static variable of the type ValidateObject. 
+It is used to add and remove functions from the validateFunctionArray variable. 
+The ValidateObject is used similarly to the C# delegate concept. 
+It has a "dictionary" member with a string as key and a function with a signature validatePotentialUrl(foundUrl: {url: string| undefined}) : void as a value.
+This mamber is a private member so no one outside this class will have direct access to the dictionary. 
+We added functions to add a new signature function to the dictionary or remove one.
+
+* @potentialUrl - a string which holds the extracted line the cursor is standing on
+(the extraction accures in getPotentialUrl function in the extension.ts file).
+We use it in the validatePotentialUrl functions, and if it was veriefied as the right format,
+we update the foundUrl.url (sent as parameter to the validatePotentialUrl function).
+The potentialUrl is updated in the extractCurrentLine function each time the cursor moves.
+
+* @commandUriNewTab ,@commandUriOpenCssFile , @commandUriOpenTextFile - uri variables which holds the uri to the commands we registered.
+commandUriNewTab is activated when clicking on "open in new tab command" on image format markdown.
+commandUriOpenCssFile is called when clicking on "open css in new tab" button.
+commandUriOpenTextFile is called when clicking on "open text in new tab" button. 
+*/
+
 export class variablesUtils {
 	static hoverStringValue: MarkdownString;
 	static previewObjectList: { [id: string]: IPreviewObject } = {};

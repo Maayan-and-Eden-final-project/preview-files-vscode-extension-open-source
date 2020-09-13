@@ -3,7 +3,7 @@
 	"displayName": "PreviewFiles",
 	"description": "",
 	"icon": "icon.png",
-	"version": "1.0.2",
+	"version": "1.1.1",
 	"publisher": "MaayanAndEden",
 	"engines": {
 		"vscode": "^1.45.0"

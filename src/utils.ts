@@ -73,6 +73,11 @@ export function openFile(url: string) {
 export function makeExplicitPathFromRelative(url: string): string | undefined {
 	let currentPath = window.activeTextEditor?.document.uri.path;
 	currentPath = currentPath?.substr(1);
+
+	if (currentPath?.endsWith("/")) {
+		currentPath = currentPath.substr(0, currentPath.length - 1);
+	}
+
 	let splitPathByFolders = currentPath?.split(/[\/]/);
 	let splitUrlByFolders = url.split(/[/\\\\]/);
 

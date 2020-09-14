@@ -1,5 +1,5 @@
-import { variablesUtils, makeExplicitPathFromRelative, openFile } from './utils';
-import { Uri, MarkdownString, commands, ExtensionContext } from 'vscode';
+import { variablesUtils, openFile } from './utils';
+import { Uri, MarkdownString, commands, ExtensionContext, window, workspace, ViewColumn } from 'vscode';
 import IPreviewObject from './IPreviewObject';
 
 
@@ -18,7 +18,6 @@ export default class HtmlObject implements IPreviewObject {
         }
     }
 
-
     makeMrkdownString(url: string): MarkdownString {
         url = url.trimLeft();
         let imageMarkdownString: MarkdownString;
@@ -33,21 +32,23 @@ export default class HtmlObject implements IPreviewObject {
         return imageMarkdownString;
     }
 
+
     getHtmlContent(url: string): string {
         const body = `<iframe
-        src='${url}' width=200 height=400 frameborder=0
+        src='${url}' width=500 height=700 frameborder=0
         sandbox="allow-scripts">
         </iframe>`;
         const mainHtml = `<!DOCTYPE html>
-							<html lang="en">
-								<head>
-									<meta charset="UTF-8">
+                            <html lang="en">
+                                <head>
+                                    <meta charset="UTF-8">
                                 </head>
                                 <body>${url ? body : '<h1 style="color: red;">NO URL</h1>'}</body>
                 
-							</html>`;
+                            </html>`;
 
         return mainHtml;
+
     }
 
     getLocalHtmlMarkdownString(url: string): MarkdownString {
@@ -57,12 +58,12 @@ export default class HtmlObject implements IPreviewObject {
     }
 
     getWebHtmlMarkdownString(url: string): MarkdownString {
-        variablesUtils.hoverStringValue.value = `[Open In Browser](${url})
-        [Open Html File In New Tab](${variablesUtils.commandUriNewTab})`;
+        variablesUtils.hoverStringValue.value = `Open In [External Browser](${url}) |
+        [Internal Browser](${variablesUtils.commandUriNewTab}) | 
+        [Resource File](${variablesUtils.commandUriOpenHtmlResourceFile})`;
 
         return variablesUtils.hoverStringValue;
     }
-
 }
 
 export function createHtmlFileEditorCommand(context: ExtensionContext): void {
@@ -73,4 +74,31 @@ export function createHtmlFileEditorCommand(context: ExtensionContext): void {
     };
     context.subscriptions.push(commands.registerCommand(htmlFileEditorCommand, htmlFileEditorCommandHandler));
     variablesUtils.commandUriOpenHtmlFile = Uri.parse('command:previewHover.htmlFileEditorCommand');
+}
+
+export function createResourceHtmlEditorCommand(context: ExtensionContext): void {
+    const htmlResourceFileCommand = 'previewHover.htmlResourceFileEditorCommand';
+
+    let htmlResourceFileEditorCommandHandler = () => {
+        getHtmlResource(String(variablesUtils.potentialUrl));
+    };
+    context.subscriptions.push(commands.registerCommand(htmlResourceFileCommand, htmlResourceFileEditorCommandHandler));
+    variablesUtils.commandUriOpenHtmlResourceFile = Uri.parse('command:previewHover.htmlResourceFileEditorCommand');
+}
+
+export function getHtmlResource(url: string): void {
+    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onload = function () {
+        workspace
+            .openTextDocument({
+                language: "html",
+                content: xhr.responseText,
+            })
+            .then(document => {
+                window.showTextDocument(document, ViewColumn.Beside);
+            });
+    };
+    xhr.send();
 }

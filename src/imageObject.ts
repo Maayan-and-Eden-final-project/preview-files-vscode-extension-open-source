@@ -56,8 +56,8 @@ export default class ImageObject implements IPreviewObject {
 	}
 
 	getImageMarkdownString(url: string): MarkdownString {
-		variablesUtils.hoverStringValue.value = `[Open In Browser](${url}) 
-		[Open Image In New Tab](${variablesUtils.commandUriNewTab}) 
+		variablesUtils.hoverStringValue.value = `[Open In Browser](${url}) | 
+		[Open Image In New Tab](${variablesUtils.commandUriNewTab})
 		![image name](${url}|height=${200})`;
 
 		return variablesUtils.hoverStringValue;

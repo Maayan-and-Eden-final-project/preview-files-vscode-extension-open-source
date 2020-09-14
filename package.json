@@ -37,6 +37,10 @@
 			{
 				"command": "previewHover.htmlFileEditorCommand",
 				"title": "htmlFileEditorCommand"
+			},
+			{
+				"command": "previewHover.htmlResourceFileEditorCommand",
+				"title": "htmlResourceFileEditorCommand"
 			}
 		]
 	},
@@ -56,6 +60,8 @@
 		"@types/jest": "^26.0.4",
 		"@types/node": "^12.11.7",
 		"@types/react": "16.8.24",
+		"@types/request": "^2.48.5",
+		"@types/request-promise-native": "^1.0.17",
 		"@types/vscode": "^1.42.0",
 		"@types/whatwg-fetch": "0.0.33",
 		"@typescript-eslint/eslint-plugin": "^2.18.0",
@@ -105,6 +111,9 @@
 	},
 	"dependencies": {
 		"@types/mocha": "^8.0.0",
-		"cross-fetch": "^3.0.6"
+		"cross-fetch": "^3.0.6",
+		"request": "^2.88.2",
+		"request-promise-native": "^1.0.9",
+		"xmlhttprequest": "^1.8.0"
 	}
 }

@@ -1,7 +1,7 @@
 # Preview Files README
 
 This is an extension for visual studio code.
-Currently we support previewing images, Css files, text files and youtube videos.
+Currently we support previewing images, Css files, text files, html files and youtube videos.
 
 ## Features
 
@@ -30,6 +30,11 @@ This extension currently supports:
 + Text files (currently only some relative paths)
 
   * Open text files in a new tab (on clicking a button when hovering).
+
++ Html files (local and external path)
+
+  * Open local html file (resource file) in a new tab.
+  * Open external html as resource file or as rendered web page (in external or "internal" browser).  
   
 ![image](images/youtube-video-gif.gif)
 

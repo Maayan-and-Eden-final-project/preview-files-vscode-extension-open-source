@@ -1,7 +1,7 @@
 
 import ValidateObject from './validationObject';
 import IPreviewObject from './IPreviewObject';
-import { workspace, TextDocument, MarkdownString, Uri, ExtensionContext, TextEditor, window, commands, ViewColumn } from 'vscode';
+import { workspace, TextDocument, MarkdownString, Uri, ExtensionContext, TextEditor, window, commands, ViewColumn, WebviewPanel } from 'vscode';
 
 const whiteSpaceRegex = /\s/g;
 
@@ -35,10 +35,14 @@ We use it in the validatePotentialUrl functions, and if it was veriefied as the 
 we update the foundUrl.url (sent as parameter to the validatePotentialUrl function).
 The potentialUrl is updated in the extractCurrentLine function each time the cursor moves.
 
-* @commandUriNewTab ,@commandUriOpenCssFile , @commandUriOpenTextFile - uri variables which holds the uri to the commands we registered.
-commandUriNewTab is activated when clicking on "open in new tab command" on image format markdown.
+* @commandUriNewTab ,@commandUriOpenCssFile , @commandUriOpenTextFile , @commandUriOpenHtmlFile , @commandUriOpenHtmlResourceFile  - uri variables which holds the uri to the commands we registered.
+commandUriNewTab is activated when clicking on "open in new tab command" on image format markdown or
+when clicking on "open in Internal Browser" on html format.
 commandUriOpenCssFile is called when clicking on "open css in new tab" button.
 commandUriOpenTextFile is called when clicking on "open text in new tab" button. 
+commandUriOpenHtmlFile is called when clicking on "open html in new tab" button.
+commandUriOpenHtmlResourceFile is called when clicking on "open resource file" button.
+
 */
 
 export class variablesUtils {
@@ -50,6 +54,8 @@ export class variablesUtils {
 	static commandUriNewTab: Uri;
 	static commandUriOpenCssFile: Uri;
 	static commandUriOpenTextFile: Uri;
+	static commandUriOpenHtmlFile: Uri;
+	static commandUriOpenHtmlResourceFile: Uri;
 }
 
 
@@ -110,13 +116,13 @@ export function makeExplicitPathFromRelative(url: string): string | undefined {
 
 export function createNewTabCommand(context: ExtensionContext): void {
 	const newTabCommand = 'previewHover.newTabCommand';
-
+	let panel: WebviewPanel;
 	let newTabCommandHandler = () => {
-		const panel = window.createWebviewPanel(
+		panel = window.createWebviewPanel(
 			'preview',
-			'Image preview',
+			'Preview File',
 			ViewColumn.Beside,
-			{}
+			{ enableScripts: true }
 		);
 		panel.webview.html = variablesUtils.currentPreviewObject.getHtmlContent(String(variablesUtils.potentialUrl));
 	};
@@ -187,8 +193,6 @@ export function getLastIndexOfWhiteSpace(str: string): number | undefined {
 		lastIndex = whiteSpaceRegex.lastIndex;
 	}
 	return lastIndex;
-
-
 }
 
 

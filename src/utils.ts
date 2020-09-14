@@ -50,6 +50,7 @@ export class variablesUtils {
 	static commandUriNewTab: Uri;
 	static commandUriOpenCssFile: Uri;
 	static commandUriOpenTextFile: Uri;
+	static commandUriOpenHtmlFile: Uri;
 }
 
 
@@ -116,7 +117,7 @@ export function createNewTabCommand(context: ExtensionContext): void {
 			'preview',
 			'Image preview',
 			ViewColumn.Beside,
-			{}
+			{ enableScripts: true }
 		);
 		panel.webview.html = variablesUtils.currentPreviewObject.getHtmlContent(String(variablesUtils.potentialUrl));
 	};

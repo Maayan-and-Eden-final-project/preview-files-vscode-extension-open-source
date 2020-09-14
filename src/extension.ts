@@ -4,6 +4,7 @@ import ImageObject from './imageObject';
 import CssObject, { createCssFileEditorCommand } from './cssObject';
 import YouTubeObject from './youtubeObject';
 import ValidateObject from './validationObject';
+import HtmlObject, { createHtmlFileEditorCommand } from './htmlObject';
 import TextObject, { createTextFileEditorCommand } from './textObject';
 import { Hover, Position, Range, Disposable, TextDocument, languages, MarkdownString, window, commands, ExtensionContext } from 'vscode';
 import { variablesUtils, createNewTabCommand, getPotentialUrl } from './utils';
@@ -27,6 +28,7 @@ export function activate(context: ExtensionContext) {
 	createNewTabCommand(context);
 	createCssFileEditorCommand(context);
 	createTextFileEditorCommand(context);
+	createHtmlFileEditorCommand(context);
 	variablesUtils.potentialUrl = getPotentialUrl(editor);
 	variablesUtils.hoverStringValue = new MarkdownString("", true);
 	variablesUtils.hoverStringValue.isTrusted = true;
@@ -69,7 +71,9 @@ function initializePreviewObjectList() {
 	variablesUtils.previewObjectList["css"] = new CssObject();
 	variablesUtils.previewObjectList["youtube"] = new YouTubeObject();
 	variablesUtils.previewObjectList["text"] = new TextObject();
+	variablesUtils.previewObjectList["html"] = new HtmlObject();
 	variablesUtils.currentPreviewObject = variablesUtils.previewObjectList["image"];
+
 }
 
 function updateHoverPanel(): void {

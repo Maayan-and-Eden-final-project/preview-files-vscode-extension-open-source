@@ -33,6 +33,10 @@
 			{
 				"command": "previewHover.textFileEditorCommand",
 				"title": "textFileEditorCommand"
+			},
+			{
+				"command": "previewHover.htmlFileEditorCommand",
+				"title": "htmlFileEditorCommand"
 			}
 		]
 	},
@@ -53,6 +57,7 @@
 		"@types/node": "^12.11.7",
 		"@types/react": "16.8.24",
 		"@types/vscode": "^1.42.0",
+		"@types/whatwg-fetch": "0.0.33",
 		"@typescript-eslint/eslint-plugin": "^2.18.0",
 		"@typescript-eslint/parser": "^2.18.0",
 		"angular": "1.7.9",
@@ -99,6 +104,7 @@
 		]
 	},
 	"dependencies": {
-		"@types/mocha": "^8.0.0"
+		"@types/mocha": "^8.0.0",
+		"cross-fetch": "^3.0.6"
 	}
 }

@@ -20,16 +20,16 @@ export default class HtmlObject implements IPreviewObject {
 
     makeMrkdownString(url: string): MarkdownString {
         url = url.trimLeft();
-        let imageMarkdownString: MarkdownString;
+        let htmlMarkdownString: MarkdownString;
 
         if (url != undefined && url.includes("http")) {
-            imageMarkdownString = this.getWebHtmlMarkdownString(url);
+            htmlMarkdownString = this.getWebHtmlMarkdownString(url);
         }
         else {
-            imageMarkdownString = this.getLocalHtmlMarkdownString(url);
+            htmlMarkdownString = this.getLocalHtmlMarkdownString(url);
         }
 
-        return imageMarkdownString;
+        return htmlMarkdownString;
     }
 
 

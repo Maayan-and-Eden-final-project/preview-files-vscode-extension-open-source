@@ -55,7 +55,7 @@
 		"test:coverage": "npx jest --coverage"
 	},
 	"devDependencies": {
-		"@angular/core": "9.0.7",
+		"@angular/core": "11.0.5",
 		"@types/glob": "^7.1.1",
 		"@types/jest": "^26.0.4",
 		"@types/node": "^12.11.7",
